@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!--没加载出来显示白屏-->
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+
+</head>
+<body>
+
+<!--手动解决闪烁问题-->
+<div id="vue" v-cloak>
+    <div>{{info.name}}</div>
+    <div>{{info.address.city}}</div>
+
+    <!--利用v-bind将标签与vue中的元素绑定-->
+    <a v-bind:href="info.url">点击此处</a>
+</div>
+
+<!--导入vue.js-->
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.min.js"></script>
+<!--引入axios.js-->
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript">
+    const vm = new Vue({
+        el: '#vue',
+        //data: 属性(vm)
+        //data(){} 方法, 接受数据(return回的)
+        data() {
+            return {
+                //请求的返回参数格式, 必须和json字符串一样!(可以不写, 但不能写错!)
+                info: {
+                    name: null,
+                    address: {
+                        street: null,
+                        city: null,
+                        country: null
+                    },
+                    url: null
+                }
+            }
+        },
+        mounted() {
+            //钩子函数
+            //axios为链式编程, =>指向要产生的事件
+            //../为上一级目录
+            axios.get('../data.json').then(response => (this.info = response.data));
+        }
+    });
+</script>
+
+</body>
+</html>

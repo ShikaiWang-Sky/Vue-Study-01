@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!--view层 模板-->
+<div id="app">
+    <!--v-model 双向绑定-->
+    输入的文本: <textarea type="text"  v-model="message"></textarea>{{message}}
+
+    <p>
+        <!--绑定到value的值-->
+        <input type="radio" name="sex" value="男" v-model="wang">男
+        <input type="radio" name="sex" value="女" v-model="wang">女
+    </p>
+    <p>
+        <!--取出名字对应的value-->
+        选中了谁: {{wang}}
+    </p>
+
+    <!--下拉框-->
+    <select v-model="selected">
+        <!--实现默认选择下拉框,不可选择,仅作提示-->
+        <option value="" disabled>--请选择--</option>
+        <option>A</option>
+        <option>B</option>
+        <option>C</option>
+    </select>
+    <span>{{selected}}</span>
+
+</div>
+
+<!--导入vue.js-->
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.min.js"></script>
+
+<script>
+    const vm = new Vue({
+        el: "#app",
+        //model : 数据
+        data: {
+            message: "",
+            wang: "",
+            selected: ""
+        }
+
+    });
+</script>
+
+</body>
+</html>

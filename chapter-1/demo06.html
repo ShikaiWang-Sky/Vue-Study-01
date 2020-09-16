@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!--view层 模板-->
+<div id="app">
+
+    <!--
+    这里由于Vue.component与vm对象为同级的元素, 无法取到其中的值, 需要一个中间取值
+    此处为v-bind:名称="值"
+    即此处的v-bind绑定的属性名为自定义模板中的props中的属性名
+    -->
+    <my-component v-for="item in items" v-bind:bound="item">
+
+    </my-component>
+
+</div>
+
+<!--导入vue.js-->
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.min.js"></script>
+
+<script>
+
+    //定义一个Vue组件component
+    //在v-bind取出的变量名放在props属性中, 通过template放到自定义模板中
+    Vue.component("myComponent", {
+        props:['bound'],
+        template: '<li>{{bound}}</li>'
+    });
+
+    const vm = new Vue({
+        el: "#app",
+        //model : 数据
+        data: {
+            items: ["Java", "Linux", "前端"]
+        }
+
+    });
+</script>
+
+</body>
+</html>
